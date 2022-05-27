@@ -15,3 +15,15 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # For questions and contributions please contact info@iq3cloud.com
+
+output "nic" {
+  value = azurerm_network_interface.nic
+}
+
+output "virtual_machine" {
+  value = azurerm_windows_virtual_machine.virtual_machine
+}
+
+output "cspadmin_password" {
+  value = random_password.cspadmin_password
+}
