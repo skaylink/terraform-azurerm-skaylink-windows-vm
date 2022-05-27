@@ -40,7 +40,7 @@ data "azurerm_client_config" "current" {
 
 data "azurerm_key_vault" "kv" {
   name                = var.vm_encryption_key_vault_name
-  resource_group_name = "iq3-basemanagement"
+  resource_group_name = var.mgmt_resource_group
 }
 
 data "azurerm_key_vault_key" "encryption_key" {
@@ -69,18 +69,18 @@ data "azurerm_log_analytics_workspace" "workspace" {
 
 data "azurerm_recovery_services_vault" "recovery_vault" {
   name                = var.vm_recovery_vault
-  resource_group_name = "iq3-basemanagement"
+  resource_group_name = var.mgmt_resource_group
 }
 
 data "azurerm_backup_policy_vm" "backup_policy" {
   name                = "DefaultPolicy"
   recovery_vault_name = data.azurerm_recovery_services_vault.recovery_vault.name
-  resource_group_name = "iq3-basemanagement"
+  resource_group_name = var.mgmt_resource_group
 }
 
 data "azurerm_storage_account" "logging_storage_account" {
   name                = var.iaas_logging_account_name
-  resource_group_name = "iq3-basemanagement"
+  resource_group_name = var.mgmt_resource_group
 }
 
 data "template_file" "iaas_diagnostics_extension_settings" {
