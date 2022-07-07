@@ -52,6 +52,7 @@ resource "azurerm_windows_virtual_machine" "virtual_machine" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
+    disk_size_gb         = var.disk_size_gb
   }
 
   source_image_reference {

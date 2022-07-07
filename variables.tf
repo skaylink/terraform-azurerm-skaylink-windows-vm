@@ -114,6 +114,12 @@ variable "vm_recovery_vault" {
   description = "The recovery vault to configure virtual machine for Backup in base management (using DefaultPolicy). Make sure that your run context has Contributor rights on the Recovery Vault."
 }
 
+variable "disk_size_gb" {
+  type        = number
+  default     = 127
+  description = "The size of the OS disk"
+}
+
 ###################################
 # Monitoring and Patch management #
 ###################################
