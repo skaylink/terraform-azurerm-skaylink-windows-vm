@@ -38,6 +38,7 @@ resource "azurerm_key_vault_secret" "example" {
   name         = "${var.vm_name}-password"
   value        = random_password.cspadmin_password.result
   key_vault_id = data.azurerm_key_vault.kv.id
+  content_type = "password"
 }
 
 resource "azurerm_windows_virtual_machine" "virtual_machine" {
