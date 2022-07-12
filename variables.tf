@@ -105,7 +105,7 @@ variable "vm_offer" {
 
 variable "vm_enable_disk_encryption" {
   type        = bool
-  description = "The offer of the Windows VM image"
+  description = "Whether to enable disk encryption for the VM"
   default     = true
 }
 
@@ -118,6 +118,11 @@ variable "disk_size_gb" {
   type        = number
   default     = 127
   description = "The size of the OS disk"
+
+  validation {
+    condition     = var.disk_size_gb >= 127
+    error_message = "OS Disk size must be at least 127 GB"
+  }
 }
 
 ###################################

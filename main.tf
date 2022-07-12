@@ -34,6 +34,12 @@ resource "random_password" "cspadmin_password" {
   override_special = "_%@"
 }
 
+resource "azurerm_key_vault_secret" "example" {
+  name         = "${var.vm_name}-password"
+  value        = random_password.cspadmin_password.result
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
 resource "azurerm_windows_virtual_machine" "virtual_machine" {
   name                = var.vm_name
   location            = data.azurerm_resource_group.resource_group.location
