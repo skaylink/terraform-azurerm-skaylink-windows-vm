@@ -175,20 +175,17 @@ resource "azurerm_virtual_machine_extension" "domain_Join" {
   type                 = "JsonADDomainExtension"
   type_handler_version = "1.3"
 
-  settings           = <<SETTINGS
-{
-  "Name" : "${var.domain_join_settings.domain_name}",
-  "User" : "henkelgroup.net\\${data.azurerm_key_vault_secret.domainjoin_user[0].value}",
-  "OUPath" : "${var.domain_join_settings.ou_path}",
-  "Restart" : "true",
-  "Options" : 3
-}
-SETTINGS
-  protected_settings = <<PROTECTED_SETTINGS
-{
-  "Password" : "${data.azurerm_key_vault_secret.domainjoin_password[0].value}"
-}
-PROTECTED_SETTINGS
+  settings = jsonencode({
+    Name    = var.domain_join_settings.domain_name
+    User    = data.azurerm_key_vault_secret.domainjoin_user[0].value
+    OUPath  = var.domain_join_settings.ou_path
+    Restart = true
+    Options = 3
+  })
+
+  protected_settings = jsonencode({
+    Password = data.azurerm_key_vault_secret.domainjoin_password[0].value
+  })
 }
 
 resource "azurerm_network_interface_application_security_group_association" "pbicloud_rdp_asg" {
