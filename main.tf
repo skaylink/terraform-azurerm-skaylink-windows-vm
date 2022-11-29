@@ -34,6 +34,7 @@ resource "random_password" "cspadmin_password" {
   override_special = "_%@"
 }
 
+#tfsec:ignore:azure-keyvault-ensure-secret-expiry
 resource "azurerm_key_vault_secret" "example" {
   name         = "${var.vm_name}-password"
   value        = random_password.cspadmin_password.result
