@@ -70,6 +70,10 @@ resource "azurerm_windows_virtual_machine" "virtual_machine" {
     version   = var.vm_version
   }
 
+  boot_diagnostics {
+    storage_account_uri = null
+  }
+
   tags = {
     deploymentType = "terraform"
   }
