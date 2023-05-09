@@ -48,6 +48,9 @@ resource "azurerm_windows_virtual_machine" "virtual_machine" {
   resource_group_name      = data.azurerm_resource_group.resource_group.name
   size                     = var.vm_size
   enable_automatic_updates = true
+  provision_vm_agent       = true
+  patch_assessment_mode    = "AutomaticByPlatform"
+  patch_mode               = "AutomaticByPlatform"
   admin_username           = "cspadmin"
   admin_password           = random_password.cspadmin_password.result
   network_interface_ids = [
