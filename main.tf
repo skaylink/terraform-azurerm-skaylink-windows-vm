@@ -43,12 +43,16 @@ resource "azurerm_key_vault_secret" "example" {
 }
 
 resource "azurerm_windows_virtual_machine" "virtual_machine" {
-  name                = var.vm_name
-  location            = data.azurerm_resource_group.resource_group.location
-  resource_group_name = data.azurerm_resource_group.resource_group.name
-  size                = var.vm_size
-  admin_username      = "cspadmin"
-  admin_password      = random_password.cspadmin_password.result
+  name                     = var.vm_name
+  location                 = data.azurerm_resource_group.resource_group.location
+  resource_group_name      = data.azurerm_resource_group.resource_group.name
+  size                     = var.vm_size
+  enable_automatic_updates = true
+  provision_vm_agent       = true
+  patch_assessment_mode    = "AutomaticByPlatform"
+  patch_mode               = "AutomaticByPlatform"
+  admin_username           = "cspadmin"
+  admin_password           = random_password.cspadmin_password.result
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
